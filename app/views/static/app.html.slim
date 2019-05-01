@@ -1,0 +1,5 @@
+#app
+
+javascript:
+  window.user = #{raw current_user.to_js.to_json}
+  window.projects = #{raw current_user.projects.map(&:to_js).to_json}
