@@ -12,7 +12,10 @@ class User < ApplicationRecord
 
   def to_js
     {
-      username: email
+      username: email,
+      currentProject: last_project,
+      currentBoard: last_board,
+      currentDocument: last_document,
     }
   end
 

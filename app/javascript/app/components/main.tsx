@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react"
 import styled from "styled-components"
-import { ContextProvider } from "../context"
+import { StoreProvider } from "../store"
 import Header from "./header"
 import Board from "./board"
 
@@ -10,26 +10,22 @@ type Props = {
 }
 
 const Main: FunctionComponent<Props> = (props: Props) => {
-  const currentBoard = {} as Board
-  const context = {
-    user: window.user,
-    projects: window.projects,
-  }
   const theme = props.theme || "default"
   const font = props.font || "sans"
-  const wrapperClassName = [`theme-${theme}`, `font-${font}`].join(" ")
+  const rootClassName = [`theme-${theme}`, `font-${font}`].join(" ")
 
   return (
-    <ContextProvider value={context}>
-      <Wrapper className={wrapperClassName}>
+    <StoreProvider>
+      <Root className={rootClassName}>
         <Header />
-        <Board board={currentBoard} />
-      </Wrapper>
-    </ContextProvider>
+        <Board />
+      </Root>
+    </StoreProvider>
   )
 }
 
-const Wrapper = styled.main`
+const Root = styled.main`
+  position: relative;
   width: 100vw;
   height: 100vh;
 `

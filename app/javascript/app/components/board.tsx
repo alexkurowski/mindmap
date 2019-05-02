@@ -1,16 +1,12 @@
 import React, { FunctionComponent } from "react"
 import styled from "styled-components"
 
-type Props = {
-  board: Board
-}
+type Props = {}
 
-const Board: FunctionComponent<Props> = (props: Props) => (
-  <Wrapper>Board</Wrapper>
-)
+const Board: FunctionComponent<Props> = (props: Props) => <Root>Board</Root>
 
-const Wrapper = styled.div`
-  padding: 1rem
+const Root = styled.div`
+  padding: 1rem;
 `
 
 export default Board

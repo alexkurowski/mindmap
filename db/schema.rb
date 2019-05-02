@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_022633) do
+ActiveRecord::Schema.define(version: 2019_05_01_143232) do
 
   create_table "boards", force: :cascade do |t|
     t.string "uid"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 2019_04_30_022633) do
     t.string "User"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "last_project"
+    t.string "last_board"
+    t.string "last_document"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

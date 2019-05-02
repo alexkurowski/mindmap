@@ -1,33 +1,30 @@
-import React, { FunctionComponent, useContext } from "react"
+import React, { FunctionComponent } from "react"
 import styled from "styled-components"
-import appContext from "../context"
+import ProjectSelect from "./project-select"
+import UserMenu from "./user-menu"
 
 type Props = {}
 
 const Header: FunctionComponent<Props> = (props: Props) => {
-  const context = useContext<Context>(appContext)
-
   return (
-    <Wrapper>
+    <Root>
       <Left>
-        <Brand>WRTR</Brand>
+        <ProjectSelect />
       </Left>
       <Right>
-        <Link href="/logout" data-method="delete">
-          {context.user.username}
-        </Link>
+        <UserMenu />
       </Right>
-    </Wrapper>
+    </Root>
   )
 }
 
-const Wrapper = styled.header`
+const Root = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #999;
-  color: #fff;
+  background: white;
   padding: 0.75rem 1rem;
+  box-shadow: 0px -15px 10px 10px currentColor;
 `
 const Left = styled.div``
 const Right = styled.div``
