@@ -1,6 +1,7 @@
-import React, { FunctionComponent, useState } from "react"
+import React, { FunctionComponent, useRef, useState, useEffect } from "react"
 import SVG from "react-inlinesvg"
 import styled from "styled-components"
+import { createNewProject } from "../store"
 import {
   StyledRoot,
   StyledMenuWrapper,
@@ -12,14 +13,33 @@ import IconSrc from "images/icons/user-circle-regular.svg"
 type Props = {}
 
 const UserMenu: FunctionComponent<Props> = (props: Props) => {
+  const [open, setOpen] = useState(false)
+  const toggleOpen = () => setOpen(!open)
+
+  const root = useRef<HTMLDivElement>()
+  const handleOutsideClick = event => {
+    if (!root.current.contains(event.target)) {
+      setOpen(false)
+    }
+  }
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick)
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick)
+    }
+  }, [])
+
   return (
-    <Root>
-      <Icon>
+    <Root ref={root}>
+      <Icon onClick={toggleOpen}>
         <SVG src={IconSrc} />
       </Icon>
       {open && (
-        <MenuWrapper className="dropdown">
+        <MenuWrapper>
           <Menu>
+            <Item onClick={createNewProject}>
+              <Link>Create New Project</Link>
+            </Item>
             <Item>
               <Link href="/logout" data-method="delete">
                 Log Out
@@ -43,12 +63,15 @@ const Icon = styled.a`
 const MenuWrapper = styled(StyledMenuWrapper)`
   position: absolute;
   top: 26px;
-  right: 0;
+  right: -0.5rem;
 `
 const Menu = StyledMenu
 const Item = StyledItem
 const Link = styled.a`
+  color: inherit;
+  font-weight: bold;
   white-space: nowrap;
+  text-decoration: none;
 `
 
 export default UserMenu

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react"
-export * from "./selectors"
+import * as Actions from "./actions"
+export * from "./actions"
 
 const initialState = (data: any) => {
   const { user, projects } = data
@@ -20,6 +21,12 @@ const reducer = (
         user: action.payload,
       }
 
+    case "setProjects":
+      return {
+        ...state,
+        projects: action.payload,
+      }
+
     default:
       return state
   }
@@ -28,9 +35,10 @@ const reducer = (
 const StoreContext = createContext<StoreContext>({} as StoreContext)
 
 export const StoreProvider = (props: any) => {
-  const [state, dispatch] = useReducer(reducer, initialState(window))
+  const [store, dispatch] = useReducer(reducer, initialState(window))
+  Actions.setStore(store, dispatch)
   const context = {
-    store: state,
+    store,
     dispatch,
   }
 
